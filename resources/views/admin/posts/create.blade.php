@@ -1,10 +1,10 @@
-@extends('layouts.base')
+@extends('layouts.admin')
 
-@section('content')
+@section('pageContent')
     <div class="container">
         <div class="row">
             <div class="col">
-                <form action="{{ route('admin.posts.store') }}" method="post">
+                <form action="{{ route('admin.posts.store') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="mb-3">
                         <label for="title" class="form-label">{{ __('Title') }}</label>
@@ -21,6 +21,10 @@
                     @error('slug')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
+                    <div class="my-3">
+                        <label for="image" class="form-label">{{ __('Image') }}</label>
+                        <input type="file" class="form-control" id="image" name="image" accept="image/*">
+                    </div>
                     <select class="form-select" aria-label="Default select example" name="category_id" id="category">
                         <option value="">Select a category</option>
 

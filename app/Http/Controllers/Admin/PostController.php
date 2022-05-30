@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Tag;
+use App\Post;
 use App\User;
 use App\Category;
-use App\Post;
-use App\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -90,10 +91,12 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $request->validate($this->getValidators(null));
-
-        $formData = $request->all() + [
-            'user_id' => Auth::user()->id
-        ];
+        $img_path = Storage::put('uploads', $request->image);
+        
+        $formData = array_merge($request->all(), [
+            'user_id' => Auth::user()->id,
+            'image'   => $img_path
+        ]);
         $post = Post::create($formData);
         $post->tags()->attach($formData['tags']);
 

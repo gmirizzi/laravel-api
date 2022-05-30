@@ -1,6 +1,6 @@
-@extends('layouts.base')
+@extends('layouts.admin')
 
-@section('content')
+@section('pageContent')
     <x-navbar />
     <div class="container p-5">
         <div class="row">
@@ -10,6 +10,7 @@
                 <div>
                     <b>{{ $post->category->name }}</b>
                 </div>
+                <img src="{{ asset('storage/'.$post->image)}}" alt="{{ $post->title }}">
                 <p class="mt-3">{{ $post->content }}</p>
             </div>
         </div>
