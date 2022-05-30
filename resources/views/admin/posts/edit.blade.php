@@ -1,6 +1,6 @@
-@extends('layouts.base')
+@extends('layouts.admin')
 
-@section('content')
+@section('pageContent')
     <div class="container">
         <div class="row">
             <div class="col">
@@ -22,6 +22,14 @@
                     @error('slug')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
+                    <div class="my-3">
+                        <label for="image" class="form-label">{{ __('Image') }}</label>
+                        <input type="file" class="form-control" id="image" name="image" accept="image/*">
+                    </div>
+                    <div class="my-3">
+                        <label for="img">Immagine attuale:</label>
+                        <img id="img" src="{{ asset('storage/'.$post->image)}}" alt="{{ $post->title }}">
+                    </div>
                     <select class="form-select" aria-label="Default select example" name="category_id" id="category">
                         <option value="">Select a category</option>
 

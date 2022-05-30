@@ -126,6 +126,15 @@ class PostController extends Controller
 
         $request->validate($this->getValidators($post));
         $formData = $request->all();
+
+        if (array_key_exists('image', $formData)) {
+            Storage::delete($post->image);
+            $img_path = Storage::put('uploads', $formData['image']);
+            $formData = [
+                'image'    => $img_path
+            ] + $formData;
+        }
+
         $post->update($formData);
         $post->tags()->sync($formData['tags']);
 
