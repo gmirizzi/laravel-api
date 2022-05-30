@@ -7,18 +7,18 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class SendNewMail extends Mailable
+class NewLeadToLead extends Mailable
 {
     use Queueable, SerializesModels;
-
+    protected $lead;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($lead)
     {
-        //
+        $this->lead = $lead;
     }
 
     /**
@@ -28,6 +28,8 @@ class SendNewMail extends Mailable
      */
     public function build()
     {
-        return $this->view('view.name');
+        return $this->view('mails.newLeadToLead', [
+            'lead'  => $this->lead,
+        ]);
     }
 }
